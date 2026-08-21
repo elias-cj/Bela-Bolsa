@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" width="400" height="100">
+  <style>
+    .brand-title { font-family: 'Playfair Display', Georgia, serif; font-size: 38px; font-weight: 600; fill: #C5A880; letter-spacing: 0.25em; }
+    .brand-sub { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 500; fill: #9E9A91; letter-spacing: 0.4em; }
+  </style>
+  <text x="200" y="48" class="brand-title" text-anchor="middle">BELA BOLSA</text>
+  <text x="200" y="75" class="brand-sub" text-anchor="middle">HAUTE MAROQUINERIE</text>
+</svg>

@@ -1,0 +1,314 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ProductStatus {
+  ACTIVE
+  INACTIVE
+  DRAFT
+}
+
+enum PromotionType {
+  FIXED_BS
+  PERCENTAGE
+  BUY_2_GET_1
+  COMBO
+  FREE_SHIPPING
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED_BS
+}
+
+enum ExpenseCategory {
+  MERCADERIA
+  TRANSPORTE
+  PUBLICIDAD
+  ALQUILER
+  SERVICIOS
+  EMPAQUE
+  OTROS
+}
+
+enum PaymentMethodType {
+  CASH
+  QR
+  TRANSFER
+  CARD
+}
+
+enum PaymentStatus {
+  COMPLETED
+  PENDING
+  FAILED
+  REFUNDED
+}
+
+enum SaleStatus {
+  COMPLETED
+  PENDING
+  CANCELLED
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String
+  slug        String    @unique
+  description String?
+  image       String?
+  status      Boolean   @default(true)
+  deletedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  products    Product[]
+  discounts   Discount[]
+
+  @@map("categories")
+}
+
+model Product {
+  id             String         @id @default(uuid())
+  name           String
+  slug           String         @unique
+  subtitle       String?
+  description    String?
+  price          Float
+  promotionalPrice Float?
+  wholesalePrice Float?
+  costPrice      Float?
+  stock          Int            @default(0)
+  minStockAlert  Int            @default(3)
+  categoryId     String
+  colors         Json?          // Array of { name, hex }
+  dimensions     String?
+  material       String?
+  isFeatured     Boolean        @default(false)
+  tag            String?        // "Nuevo", "Edición Limitada", "Best Seller", "Exclusivo"
+  status         ProductStatus  @default(ACTIVE)
+  deletedAt      DateTime?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  category       Category       @relation(fields: [categoryId], references: [id])
+  images         ProductImage[]
+  wholesaleTiers WholesalePrice[]
+  priceHistory   PriceHistory[]
+  saleItems      SaleItem[]
+  discounts      Discount[]
+
+  @@map("products")
+}
+
+model ProductImage {
+  id        String   @id @default(uuid())
+  productId String
+  url       String
+  alt       String?
+  order     Int      @default(0)
+  isPrimary Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("product_images")
+}
+
+model WholesalePrice {
+  id          String   @id @default(uuid())
+  productId   String
+  minQuantity Int
+  unitPrice   Float
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("wholesale_prices")
+}
+
+model PriceHistory {
+  id         String   @id @default(uuid())
+  productId  String
+  oldPrice   Float
+  newPrice   Float
+  priceType  String   @default("NORMAL") // "NORMAL", "PROMOTIONAL", "WHOLESALE"
+  reason     String?
+  startDate  DateTime?
+  endDate    DateTime?
+  createdAt  DateTime @default(now())
+
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("price_histories")
+}
+
+model Promotion {
+  id                 String        @id @default(uuid())
+  name               String
+  description        String?
+  type               PromotionType @default(PERCENTAGE)
+  value              Float
+  minQuantity        Int?          @default(1)
+  freeShipping       Boolean       @default(false)
+  applicableProducts Json?         // Array of product UUIDs, or empty for all
+  startDate          DateTime
+  endDate            DateTime
+  isActive           Boolean       @default(true)
+  deletedAt          DateTime?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  @@map("promotions")
+}
+
+model Discount {
+  id          String       @id @default(uuid())
+  name        String
+  type        DiscountType @default(PERCENTAGE)
+  value       Float
+  applyToAll  Boolean      @default(false)
+  categoryId  String?
+  productId   String?
+  startDate   DateTime?
+  endDate     DateTime?
+  isActive    Boolean      @default(true)
+  deletedAt   DateTime?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  category    Category?    @relation(fields: [categoryId], references: [id])
+  product     Product?     @relation(fields: [productId], references: [id])
+
+  @@map("discounts")
+}
+
+model Coupon {
+  id          String       @id @default(uuid())
+  code        String       @unique
+  description String?
+  type        DiscountType @default(PERCENTAGE)
+  value       Float
+  minPurchase Float        @default(0)
+  maxDiscount Float?
+  usageLimit  Int          @default(100)
+  usedCount   Int          @default(0)
+  startDate   DateTime     @default(now())
+  endDate     DateTime
+  isActive    Boolean      @default(true)
+  deletedAt   DateTime?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  sales       Sale[]
+
+  @@map("coupons")
+}
+
+model Sale {
+  id             String       @id @default(uuid())
+  code           String       @unique // e.g. "VEN-2026-001"
+  customerName   String
+  customerPhone  String?
+  customerCity   String?
+  subtotal       Float
+  discountAmount Float        @default(0)
+  couponId       String?
+  total          Float
+  status         SaleStatus   @default(COMPLETED)
+  notes          String?
+  deletedAt      DateTime?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  coupon         Coupon?      @relation(fields: [couponId], references: [id])
+  items          SaleItem[]
+  payments       Payment[]
+
+  @@map("sales")
+}
+
+model SaleItem {
+  id          String   @id @default(uuid())
+  saleId      String
+  productId   String
+  productName String
+  color       String?
+  quantity    Int
+  unitPrice   Float
+  subtotal    Float
+  createdAt   DateTime @default(now())
+
+  sale        Sale     @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  product     Product  @relation(fields: [productId], references: [id])
+
+  @@map("sale_items")
+}
+
+model Payment {
+  id                String            @id @default(uuid())
+  saleId            String
+  method            PaymentMethodType @default(QR)
+  amount            Float
+  amountReceived    Float?            // For cash payment
+  changeGiven       Float?            // For cash payment
+  bank              String?           // For QR: "BNB", "Mercantil Santa Cruz", "BCP", "BISA", "Ganadero", "Fassil"
+  reference         String?
+  transactionNumber String?
+  receiptUrl        String?
+  status            PaymentStatus     @default(COMPLETED)
+  createdAt         DateTime          @default(now())
+
+  sale              Sale              @relation(fields: [saleId], references: [id], onDelete: Cascade)
+
+  @@map("payments")
+}
+
+model Expense {
+  id            String          @id @default(uuid())
+  concept       String
+  category      ExpenseCategory @default(OTROS)
+  amount        Float
+  paymentMethod PaymentMethodType @default(CASH)
+  date          DateTime        @default(now())
+  receiptUrl    String?
+  notes         String?
+  deletedAt     DateTime?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  @@map("expenses")
+}
+
+model SocialLink {
+  id        String   @id @default(uuid())
+  platform  String   @unique // "whatsapp", "instagram", "facebook", "tiktok", "website"
+  title     String
+  url       String
+  phone     String?
+  message   String?
+  isActive  Boolean  @default(true)
+  updatedAt DateTime @updatedAt
+
+  @@map("social_links")
+}
+
+model Setting {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String
+  type      String   @default("string") // "string", "number", "boolean", "json"
+  label     String?
+  updatedAt DateTime @updatedAt
+
+  @@map("settings")
+}
