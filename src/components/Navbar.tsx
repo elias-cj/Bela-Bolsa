@@ -35,8 +35,8 @@ export function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "glass-header border-b border-luxury-sand/70 dark:border-luxury-charcoal-light/70 py-3.5 shadow-luxury-sm"
-          : "bg-luxury-ivory/80 dark:bg-luxury-charcoal-black/80 backdrop-blur-md border-b border-luxury-sand/30 dark:border-luxury-charcoal-light/30 py-4"
+          ? "glass-header border-b border-luxury-sand/70 dark:border-luxury-charcoal-light/70 py-2.5 sm:py-3.5 shadow-luxury-sm"
+          : "bg-luxury-ivory/80 dark:bg-luxury-charcoal-black/80 backdrop-blur-md border-b border-luxury-sand/30 dark:border-luxury-charcoal-light/30 py-3 sm:py-4"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -47,10 +47,10 @@ export function Navbar() {
             href="#inicio"
             className="group flex flex-col items-start focus:outline-none"
           >
-            <span className="font-serif text-2xl sm:text-3xl tracking-[0.25em] font-semibold text-luxury-charcoal dark:text-luxury-ivory transition-colors group-hover:text-luxury-gold">
+            <span className="font-serif text-lg sm:text-2xl lg:text-3xl tracking-[0.2em] sm:tracking-[0.25em] font-semibold text-luxury-charcoal dark:text-luxury-ivory transition-colors group-hover:text-luxury-gold">
               BELA BOLSA
             </span>
-            <span className="text-[9px] uppercase tracking-[0.4em] text-luxury-muted-light dark:text-luxury-muted-dark -mt-1 font-sans">
+            <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.3em] sm:tracking-[0.4em] text-luxury-muted-light dark:text-luxury-muted-dark -mt-0.5 sm:-mt-1 font-sans">
               Haute Maroquinerie
             </span>
           </Link>

@@ -8,74 +8,74 @@ export function Hero() {
   return (
     <section
       id="inicio"
-      className="relative min-h-screen flex flex-col justify-center pt-28 sm:pt-32 lg:pt-36 pb-16 lg:pb-20 overflow-hidden"
+      className="relative min-h-[90vh] sm:min-h-screen flex flex-col justify-center pt-24 sm:pt-32 lg:pt-36 pb-12 sm:pb-16 lg:pb-20 overflow-hidden"
     >
       {/* Background Subtle Gradient & Accents */}
       <div className="absolute inset-0 bg-gradient-to-r from-luxury-ivory via-luxury-cream to-luxury-sand dark:from-luxury-charcoal-black dark:via-[#0E0E10] dark:to-luxury-charcoal transition-colors duration-500" />
       
       {/* Delicate background circles for ambient depth */}
-      <div className="absolute -top-32 -left-32 w-96 h-96 bg-luxury-gold/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-luxury-gold/10 dark:bg-luxury-gold/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute -top-32 -left-32 w-72 sm:w-96 h-72 sm:h-96 bg-luxury-gold/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 right-0 w-80 sm:w-[500px] h-80 sm:h-[500px] bg-luxury-gold/10 dark:bg-luxury-gold/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 my-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
           
           {/* Left Column: Editorial Headline & Actions */}
-          <div className="lg:col-span-6 flex flex-col items-start justify-center space-y-6 pt-8 lg:pt-0">
+          <div className="lg:col-span-6 flex flex-col items-start justify-center space-y-4 sm:space-y-6 pt-4 sm:pt-8 lg:pt-0">
             
             {/* Exclusive Badge */}
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-luxury-gold/40 bg-luxury-gold/10 dark:bg-luxury-gold/15 backdrop-blur-sm">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full border border-luxury-gold/40 bg-luxury-gold/10 dark:bg-luxury-gold/15 backdrop-blur-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-luxury-gold animate-ping" />
-              <span className="text-[11px] uppercase tracking-[0.25em] font-medium text-luxury-gold-dark dark:text-luxury-gold">
+              <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] sm:tracking-[0.25em] font-medium text-luxury-gold-dark dark:text-luxury-gold">
                 Colección Exclusiva 2026
               </span>
             </div>
 
             {/* Main Luxury Title */}
-            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-normal tracking-tight text-luxury-charcoal dark:text-luxury-ivory leading-[1.08]">
-              Elegancia <br />
+            <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl xl:text-7xl font-normal tracking-tight text-luxury-charcoal dark:text-luxury-ivory leading-[1.1] sm:leading-[1.08]">
+              Elegancia <br className="hidden sm:inline" />
               <span className="italic font-normal font-display gold-gradient-text">
                 Esculpida
               </span>{" "}
-              en <br />
+              en <br className="hidden sm:inline" />
               Cada Detalle.
             </h1>
 
             {/* Short Editorial Description */}
-            <p className="text-base sm:text-lg text-luxury-charcoal/80 dark:text-luxury-ivory/80 font-light max-w-lg leading-relaxed">
+            <p className="text-xs sm:text-base lg:text-lg text-luxury-charcoal/80 dark:text-luxury-ivory/80 font-light max-w-lg leading-relaxed">
               Marroquinería de alta gama elaborada con cueros seleccionados y herrajes dorados. Cada diseño combina la tradición artesanal con el lujo contemporáneo.
             </p>
 
             {/* Feature highlights pills */}
-            <div className="flex flex-wrap gap-4 py-2 text-xs tracking-wider text-luxury-charcoal/70 dark:text-luxury-ivory/70 uppercase">
-              <div className="flex items-center space-x-1.5">
+            <div className="flex flex-wrap gap-2.5 sm:gap-4 py-1 sm:py-2 text-[10px] sm:text-xs tracking-wider text-luxury-charcoal/70 dark:text-luxury-ivory/70 uppercase">
+              <div className="flex items-center space-x-1.5 bg-luxury-sand/30 sm:bg-transparent px-2.5 py-1 sm:p-0 rounded-full">
                 <span className="text-luxury-gold">✦</span>
                 <span>Cuero de flor entera</span>
               </div>
-              <div className="flex items-center space-x-1.5">
+              <div className="flex items-center space-x-1.5 bg-luxury-sand/30 sm:bg-transparent px-2.5 py-1 sm:p-0 rounded-full">
                 <span className="text-luxury-gold">✦</span>
                 <span>Envíos a toda Bolivia</span>
               </div>
-              <div className="flex items-center space-x-1.5">
+              <div className="flex items-center space-x-1.5 bg-luxury-sand/30 sm:bg-transparent px-2.5 py-1 sm:p-0 rounded-full">
                 <span className="text-luxury-gold">✦</span>
                 <span>Edición Limitada</span>
               </div>
             </div>
 
             {/* Primary Action Button (WhatsApp) */}
-            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
+            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
               <a
                 href={getWhatsAppLink("Hola, quiero comprar una cartera de la nueva colección de Bela Bolsa.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative inline-flex items-center justify-center space-x-3 px-8 py-4 rounded-full bg-gradient-to-r from-luxury-gold via-luxury-gold-light to-luxury-gold-dark text-luxury-charcoal-black font-semibold text-xs sm:text-sm uppercase tracking-[0.2em] shadow-luxury-gold hover:shadow-luxury-gold-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 overflow-hidden"
+                className="group relative inline-flex items-center justify-center space-x-2.5 sm:space-x-3 px-6 py-3.5 sm:px-8 sm:py-4 rounded-full bg-gradient-to-r from-luxury-gold via-luxury-gold-light to-luxury-gold-dark text-luxury-charcoal-black font-semibold text-xs sm:text-sm uppercase tracking-[0.18em] sm:tracking-[0.2em] shadow-luxury-gold hover:shadow-luxury-gold-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 overflow-hidden"
               >
                 {/* Gold shimmer highlight effect */}
                 <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
                 
                 {/* WhatsApp Vector Icon */}
                 <svg
-                  className="w-5 h-5 text-luxury-charcoal-black flex-shrink-0"
+                  className="w-4 h-4 sm:w-5 sm:h-5 text-luxury-charcoal-black flex-shrink-0"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -86,7 +86,7 @@ export function Hero() {
 
               <a
                 href="#coleccion"
-                className="inline-flex items-center justify-center px-6 py-4 rounded-full border border-luxury-charcoal/20 dark:border-luxury-ivory/20 hover:border-luxury-gold dark:hover:border-luxury-gold text-luxury-charcoal dark:text-luxury-ivory hover:text-luxury-gold text-xs uppercase tracking-[0.2em] font-medium transition-all duration-300 text-center"
+                className="inline-flex items-center justify-center px-5 py-3 sm:px-6 sm:py-4 rounded-full border border-luxury-charcoal/20 dark:border-luxury-ivory/20 hover:border-luxury-gold dark:hover:border-luxury-gold text-luxury-charcoal dark:text-luxury-ivory hover:text-luxury-gold text-xs uppercase tracking-[0.18em] sm:tracking-[0.2em] font-medium transition-all duration-300 text-center"
               >
                 Ver Colección
               </a>
@@ -95,13 +95,13 @@ export function Hero() {
           </div>
 
           {/* Right Column: Hero Luxury Handbag Photography Showcase */}
-          <div className="lg:col-span-6 relative flex items-center justify-center">
+          <div className="lg:col-span-6 relative flex items-center justify-center pt-2 sm:pt-0">
             
             {/* Ambient decorative frame backdrop */}
-            <div className="relative w-full max-w-md lg:max-w-none">
+            <div className="relative w-full max-w-[290px] sm:max-w-md lg:max-w-none">
               
               {/* Outer Golden Line border */}
-              <div className="absolute -inset-3 sm:-inset-4 rounded-3xl border border-luxury-gold/30 dark:border-luxury-gold/20 transform rotate-1 transition-transform duration-700" />
+              <div className="absolute -inset-2 sm:-inset-4 rounded-2xl sm:rounded-3xl border border-luxury-gold/30 dark:border-luxury-gold/20 transform rotate-1 transition-transform duration-700" />
               
               {/* Main Image Container */}
               <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden shadow-2xl bg-luxury-sand/30 dark:bg-luxury-charcoal-light/30">
@@ -118,25 +118,25 @@ export function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80" />
 
                 {/* Floating Tag over image */}
-                <div className="absolute bottom-6 left-6 right-6 p-4 rounded-xl backdrop-blur-md bg-black/40 border border-white/10 text-white flex items-center justify-between">
+                <div className="absolute bottom-3 sm:bottom-6 left-3 sm:left-6 right-3 sm:right-6 p-2.5 sm:p-4 rounded-xl backdrop-blur-md bg-black/40 border border-white/10 text-white flex items-center justify-between">
                   <div>
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-luxury-gold block font-sans">
+                    <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-luxury-gold block font-sans">
                       Pieza Destacada
                     </span>
-                    <span className="font-serif text-lg font-normal tracking-wide">
+                    <span className="font-serif text-sm sm:text-lg font-normal tracking-wide">
                       Élysée Tote No. 1
                     </span>
                   </div>
-                  <span className="font-serif text-xl text-luxury-gold-shimmer">
+                  <span className="font-serif text-base sm:text-xl text-luxury-gold-shimmer">
                     Bs. 890
                   </span>
                 </div>
               </div>
 
               {/* Floating Mini Badge */}
-              <div className="absolute -top-4 -right-4 bg-white/90 dark:bg-luxury-charcoal/90 backdrop-blur-md border border-luxury-gold/40 py-2 px-4 rounded-full shadow-lg hidden sm:flex items-center space-x-2">
-                <span className="text-luxury-gold text-sm">★</span>
-                <span className="text-[11px] font-medium uppercase tracking-wider text-luxury-charcoal dark:text-luxury-ivory">
+              <div className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 bg-white/90 dark:bg-luxury-charcoal/90 backdrop-blur-md border border-luxury-gold/40 py-1.5 px-3 sm:py-2 sm:px-4 rounded-full shadow-lg flex items-center space-x-1.5 sm:space-x-2">
+                <span className="text-luxury-gold text-xs sm:text-sm">★</span>
+                <span className="text-[10px] sm:text-[11px] font-medium uppercase tracking-wider text-luxury-charcoal dark:text-luxury-ivory">
                   Hecho a Mano
                 </span>
               </div>
